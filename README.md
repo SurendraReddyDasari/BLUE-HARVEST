@@ -9,7 +9,7 @@ Features:
 3. Deploy the application across different environments on the target infrastructure.
 
 # Infrastructure Deployment Pipeline
-Objective: Deploy the required infrastructure for the application using IaC.
+Objective: Deploy the required infrastructure for the application using IaC in the Cloud.
 Features:
 1. Public cloud provider:- Azure Cloud
 2. Infrastructure as code tool:- Terraform
@@ -17,8 +17,7 @@ Features:
 4. Pipeline Tool:- ADO Pipelines
 
 
-# Choice of Cloud Provider
-For this assessment, we will utilize Azure as our cloud platform. 
+ 
 
 # CI/CD Pipeline Architecture
 Our CI/CD pipeline will consist of the following stages:
@@ -50,7 +49,7 @@ Steps:
   10. Docker Build and Push: Builds Docker images from the published application and pushes them to the specified Docker registry repository with the '1.0' tag.
 
 
-Make a service connection from ADO Pipelines to Docker-Hub & Azre Resource Manager(cloud)
+Note: Make a service connection from ADO Pipelines to Docker-Hub & Azre Resource Manager(cloud)
 
 
 Environment Variables
@@ -68,7 +67,7 @@ Replace the placeholder values in the ci.yml file with your actual Docker regist
 Create a new pipeline in Azure DevOps and select the ci.yml file from your repository.
 Run the pipeline to build, test, publish, Dockerize, and push your .NET application.
 
-Make a service connection from ADO Pipelines to Docker-Hub & Azre Resource Manager(cloud)
+Note: Make a service connection from ADO Pipelines to Docker-Hub & Azre Resource Manager(cloud)
 
 # Infrastructure Deployment Pipeline
 Our IaC pipeline utilizes Terraform to provision and manage cloud resources efficiently. Below is an overview of the  the Terraform modules used for each component:
