@@ -91,9 +91,11 @@ Terraform Version: Displays the Terraform version.
 Init: Initializes Terraform, setting up the environment.
 Validate: Validates the Terraform configuration.
 Plan: Generates an execution plan for Terraform changes.
+
 Job 2: Terraform Apply
 DisplayName: Terraform Apply
 Depends On: Terraform Plan
+
 Steps:
 Init: Initializes Terraform again to ensure the environment is set up.
 Apply: Applies the Terraform changes to provision or update the infrastructure.
