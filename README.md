@@ -29,9 +29,46 @@ Our CI/CD pipeline will consist of the following stages:
 4. Push: Push the Docker image to a container registry.
 5. Deployment: Deploy the application to different environments
 
+# Continuous Integration Pipeline (CI)
+This repository contains the Azure DevOps pipeline configuration (ci.yml) for continuous integration (CI) of a .NET application. The pipeline automates the build, test, and publish process of the application, as well as Dockerizing the application and pushing it to a Docker registry.
+
+Pipeline Configuration
+The pipeline is triggered on changes to the main branch. It consists of the following job:
+
+Job: CI
+DisplayName: CI
+Steps:
+  1. Install .NET SDK: Installs the specified version of the .NET SDK.
+  2. Restore NuGet Packages: Restores NuGet packages required for the project.
+  3. Build the Application: Builds the .NET application with the Release configuration.
+  4. Run Unit Tests: Executes unit tests and collects code coverage using XPlat Code Coverage.
+  5. Publish the Application: Publishes the built application with the Release configuration.
+  6. Docker Login: Logs in to the Docker registry using provided credentials.
+  7. List: Lists the contents of the published directory.
+  8. Print Working Directory: Prints the current working directory.
+  9. Print Staging Directory: Prints the staging directory.
+  10. Docker Build and Push: Builds Docker images from the published application and pushes them to the specified Docker registry repository with the '1.0' tag.
 
 
+Make a service connection from ADO Pipelines to Docker-Hub & Azre Resource Manager(cloud)
 
+
+Environment Variables
+The pipeline requires the following environment variables to authenticate with the Docker registry:
+
+1. username: Docker registry username.
+2. password: Docker registry password.
+Ensure that these environment variables are securely stored and managed in your Azure DevOps project settings.
+
+Getting Started
+To use this pipeline:
+
+Clone this repository to your Azure DevOps project.
+Replace the placeholder values in the ci.yml file with your actual Docker registry credentials and repository name.
+Create a new pipeline in Azure DevOps and select the ci.yml file from your repository.
+Run the pipeline to build, test, publish, Dockerize, and push your .NET application.
+
+Make a service connection from ADO Pipelines to Docker-Hub & Azre Resource Manager(cloud)
 
 # Infrastructure Deployment Pipeline
 Our IaC pipeline utilizes Terraform to provision and manage cloud resources efficiently. Below is an overview of the  the Terraform modules used for each component:
@@ -43,7 +80,7 @@ resource_group: Handles the creation of the resource group, providing a logical 
 
 # Continuous Deployment Pipeline (CD)
 
-Azure DevOps pipeline configuration (pipeline.yml) for continuous deployment (CD) using Terraform. The pipeline automates the deployment process of infrastructure using Terraform scripts
+Azure DevOps pipeline configuration (cd.yml) for continuous deployment (CD) using Terraform. The pipeline automates the deployment process of infrastructure using Terraform scripts
 
 Job 1: Terraform Plan
 DisplayName: Terraform Plan
