@@ -1,0 +1,56 @@
+name: CD
+
+trigger:
+  branches:
+    include:
+      - main
+jobs:
+  - job: TerraformPlan
+    displayName: Terraform Plan
+    
+    
+    steps:
+      - script: 'terraform version'
+        displayName: 'Terraform Version'
+
+      - script: 'terraform -chdir=aspnet-core-dotnet-core/Terraform/main init -input=false'
+        displayName: 'Init'
+        env:
+          ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID) # mention your subscription id, tenant id, client id, client secret a variables
+          ARM_TENANT_ID: $(ARM_TENANT_ID)
+          ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+          ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+
+      - script: 'terraform -chdir=aspnet-core-dotnet-core/Terraform/main validate'
+        displayName: 'Validate'
+
+      - script: 'terraform -chdir=aspnet-core-dotnet-core/Terraform/main plan -input=false'
+        displayName: 'Plan'
+        env:
+          ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+          ARM_TENANT_ID: $(ARM_TENANT_ID)
+          ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+          ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+
+
+
+  - job: TerraformApply
+    displayName: Terraform Apply
+    dependsOn: TerraformPlan
+  
+    steps:
+      - script: 'terraform -chdir=aspnet-core-dotnet-core/Terraform/main init -input=false'
+        displayName: 'Init'
+        env:
+          ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+          ARM_TENANT_ID: $(ARM_TENANT_ID)
+          ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+          ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+
+      - script: 'terraform -chdir=aspnet-core-dotnet-core/Terraform/main apply -auto-approve -input=false'
+        displayName: 'Apply'
+        env:
+          ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+          ARM_TENANT_ID: $(ARM_TENANT_ID)
+          ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+          ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)

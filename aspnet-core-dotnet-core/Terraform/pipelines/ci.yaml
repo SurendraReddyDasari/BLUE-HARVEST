@@ -1,0 +1,75 @@
+name: CI
+
+trigger:
+  branches:
+    include:
+      - main
+
+jobs:
+  - job: CI
+    displayName: CI      
+    steps:
+      - task: UseDotNet@2
+        displayName: 'Install .NET SDK'
+        inputs:
+          version: '2.2.x'
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Restore NuGet packages'
+        inputs:
+          command: 'restore'
+          projects: '**/*.csproj'
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Build the application'
+        inputs:
+          command: 'build'
+          projects: '**/*.csproj'
+          arguments: '--configuration Release'
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Run unit tests'
+        inputs:
+          command: 'test'
+          projects: '**/*Tests.csproj'
+          arguments: '--configuration Release --collect:"XPlat Code Coverage"'
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Publish the application'
+        inputs:
+          command: 'publish'
+          projects: '**/*.csproj'
+          arguments: '--configuration Release --output $(Build.SourcesDirectory)/publish'
+          zipAfterPublish: false
+          modifyOutputPath: false
+
+
+      - task: Docker@2
+        displayName: 'Docker Login'
+        inputs:
+          command: 'login'
+          containerRegistry: 'docker.io'
+          username: username # give your username
+          password: password # give your password
+          
+
+      - script: 'ls -ll $(Build.SourcesDirectory)/publish'
+        displayName: 'List'
+      - script: 'pwd'
+        displayName: 'Print Working Directory'
+      - script: 'echo $(Build.SourcesDirectory)'
+        displayName: 'Print Staging Directory'
+
+            
+      - task: Docker@2
+        displayName: 'Docker Build and Push'
+        inputs:
+          command: 'buildAndPush'
+          containerRegistry: 'docker.io'
+          repository: 'repository' # give a repository here
+          tags: '1.0'
+          buildContext: '$(Build.SourcesDirectory)'
+          dockerfile: '**/*Dockerfile'
+          includeLatestTag: true
+
+
