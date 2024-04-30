@@ -29,6 +29,10 @@ Our CI/CD pipeline will consist of the following stages:
 4. Push: Push the Docker image to a container registry.
 5. Deployment: Deploy the application to different environments
 
+
+
+
+
 # Infrastructure Deployment Pipeline
 Our IaC pipeline utilizes Terraform to provision and manage cloud resources efficiently. Below is an overview of the  the Terraform modules used for each component:
 
@@ -41,7 +45,7 @@ resource_group: Handles the creation of the resource group, providing a logical 
 
 Azure DevOps pipeline configuration (pipeline.yml) for continuous deployment (CD) using Terraform. The pipeline automates the deployment process of infrastructure using Terraform scripts
 
-   Job 1: Terraform Plan
+Job 1: Terraform Plan
 DisplayName: Terraform Plan
 Steps:
 Terraform Version: Displays the Terraform version.
@@ -56,14 +60,14 @@ Init: Initializes Terraform again to ensure the environment is set up.
 Apply: Applies the Terraform changes to provision or update the infrastructure.
 
 
-# Environment Variables
+Environment Variables
 
 The pipeline requires the following environment variables to authenticate with the Azure subscription and access resources:
 
-ARM_SUBSCRIPTION_ID: Azure subscription ID.
-ARM_TENANT_ID: Azure Active Directory tenant ID.
-ARM_CLIENT_ID: Azure service principal client ID.
-ARM_CLIENT_SECRET: Azure service principal client secret.
+1. ARM_SUBSCRIPTION_ID: Azure subscription ID.
+2. ARM_TENANT_ID: Azure Active Directory tenant ID.
+3. ARM_CLIENT_ID: Azure service principal client ID.
+4. ARM_CLIENT_SECRET: Azure service principal client secret.
 Ensure that these environment variables are securely stored and managed in your Azure DevOps project settings.
 
 Getting Started
