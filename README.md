@@ -102,6 +102,8 @@ Depends On: Terraform Plan
 Steps:
 Init: Initializes Terraform again to ensure the environment is set up.
 Apply: Applies the Terraform changes to provision or update the infrastructure.
+
+
 Job 3: Terraform Destroy
 DisplayName: Terraform Destroy
 Depends On: Terraform Apply
