@@ -36,7 +36,7 @@ variable "webapp_name" {
 variable "docker_image_name" {
   description = "Name of the Docker image for the Web App."
   type        = string
-  default     = "docker_image_name"
+  default     = "docker_image_name"  # give your desired Docker Image here 
 }
 
 variable "docker_registry_url" {

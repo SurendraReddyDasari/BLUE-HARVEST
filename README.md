@@ -81,7 +81,7 @@ resource_group: Handles the creation of the resource group, providing a logical 
 # Continuous Deployment Pipeline (CD)
 
 Azure DevOps pipeline configuration (cd.yml) for continuous deployment (CD) using Terraform. The pipeline automates the deployment process of infrastructure using Terraform scripts
-Make a service connection from ADO Pipelines to Docker-Hub & Azre Resource Manager(cloud)
+Make a service connection from ADO Pipelines to Docker-Hub & Azure Resource Manager(cloud)
 
 
 Job 1: Terraform Plan
@@ -97,7 +97,11 @@ Depends On: Terraform Plan
 Steps:
 Init: Initializes Terraform again to ensure the environment is set up.
 Apply: Applies the Terraform changes to provision or update the infrastructure.
-
+Job 3: Terraform Destroy
+DisplayName: Terraform Destroy
+Depends On: Terraform Apply
+Steps:
+Destroy: Initiates the destruction of provisioned infrastructure using Terraform.
 
 Environment Variables
 
