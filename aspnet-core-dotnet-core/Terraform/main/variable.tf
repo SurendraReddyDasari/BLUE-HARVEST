@@ -48,13 +48,13 @@ variable "docker_registry_url" {
 variable "docker_registry_username" {
   description = "Username for accessing the Docker registry."
   type        = string
-  default     = "username"
+  default     = "username"  # give your username here
 }
 
 variable "docker_registry_password" {
   description = "Password for accessing the Docker registry."
   type        = string
-  default     = "password"
+  default     = "password"  # give your password here
 }
 
 variable "linux_fx_version" {

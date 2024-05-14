@@ -50,7 +50,7 @@ Steps:
   10. Docker Build and Push: Builds Docker images from the published application and pushes them to the specified Docker registry repository with the '1.0' tag.
 
 
-Make a service connection from ADO Pipelines to Docker-Hub & Azre Resource Manager(cloud)
+Make a service connection from ADO Pipelines to Docker-Hub & Azure Resource Manager(cloud)
 
 
 Environment Variables
